@@ -172,6 +172,39 @@ body.on-select #bg-layer{filter:blur(var(--bg-blur)) brightness(calc(0.22 + (1 -
 #welcome-panel .modal-box{width:520px;max-height:80vh;overflow-y:auto;}
 #welcome-panel .modal-box::-webkit-scrollbar{width:3px;}
 #welcome-panel .modal-box::-webkit-scrollbar-thumb{background:rgba(255,140,42,.3);}
+#sel-online-btn{font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:6px;border:1.5px solid rgba(255,140,42,.4);background:rgba(255,140,42,.1);color:var(--accent2);cursor:pointer;transition:all .14s;white-space:nowrap;}
+#sel-online-btn:hover{border-color:var(--accent);background:rgba(255,140,42,.18);}
+#online-panel .modal-box{width:min(760px,88vw);max-height:84vh;display:flex;flex-direction:column;padding:26px 26px 22px;}
+#online-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+#online-header-row .modal-title{margin-bottom:0;}
+#online-close-x{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--dim);background:none;border:none;cursor:pointer;padding:2px 6px;transition:color .14s;}
+#online-close-x:hover{color:var(--accent);}
+#online-filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;flex-shrink:0;}
+#online-search-input{flex:1;min-width:160px;font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.06em;padding:8px 12px;border-radius:5px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--text);outline:none;transition:border-color .14s;}
+#online-search-input::placeholder{color:rgba(220,195,145,.35);}
+#online-search-input:focus{border-color:rgba(255,140,42,.5);background:rgba(255,140,42,.05);}
+#online-filters select,#online-filters input[type=number]{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.05em;padding:8px 9px;border-radius:5px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--text);outline:none;}
+#online-filters input[type=number]{width:58px;}
+.online-status-line{font-size:.4rem;letter-spacing:.1em;color:var(--dim);margin-bottom:10px;min-height:11px;flex-shrink:0;}
+.online-status-line.err{color:#ff6b6b;}
+#online-list-scroll{flex:1;overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:rgba(255,140,42,.22) transparent;}
+#online-list-scroll::-webkit-scrollbar{width:3px;}
+#online-list-scroll::-webkit-scrollbar-thumb{background:rgba(255,140,42,.22);border-radius:2px;}
+.online-card{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);margin-bottom:6px;position:relative;overflow:hidden;transition:border-color .14s,background .14s;}
+.online-card:hover{border-color:rgba(255,140,42,.3);background:rgba(255,140,42,.05);}
+.online-card.in-library{border-color:rgba(120,220,140,.35);}
+.online-thumb{width:48px;height:48px;border-radius:7px;background-size:cover;background-position:center;flex-shrink:0;background-color:rgba(255,255,255,.08);}
+.online-info{flex:1;min-width:0;}
+.online-title{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.online-artist{font-size:.4rem;letter-spacing:.06em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.online-meta-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.online-tag{font-size:.36rem;letter-spacing:.08em;padding:2px 7px;border-radius:3px;background:rgba(255,255,255,.08);color:rgba(230,205,155,.7);border:1px solid rgba(255,255,255,.1);}
+.online-add-btn{font-family:'Space Mono',monospace;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 13px;border-radius:6px;border:1.5px solid var(--accent);background:rgba(255,140,42,.16);color:var(--accent);cursor:pointer;transition:all .14s;flex-shrink:0;white-space:nowrap;}
+.online-add-btn:hover{background:rgba(255,140,42,.3);}
+.online-add-btn:disabled{opacity:.55;cursor:default;}
+.online-add-btn.done{border-color:rgba(120,220,140,.5);background:rgba(120,220,140,.14);color:#8ee6a0;}
+#online-sentinel{height:1px;}
+#online-loading-more{text-align:center;font-size:.4rem;letter-spacing:.12em;color:var(--dim);padding:12px 0;}
 #tour-steps{display:flex;flex-direction:column;gap:18px;margin-bottom:4px;}
 .tour-step{display:flex;gap:14px;align-items:flex-start;}
 .tour-num{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);font-family:'Syne',sans-serif;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
@@ -378,6 +411,7 @@ body.on-select #bg-layer{filter:blur(var(--bg-blur)) brightness(calc(0.22 + (1 -
           <option value="title-asc">A → Z</option>
           <option value="title-desc">Z → A</option>
         </select>
+        <button id="sel-online-btn">🌐 Browse Online</button>
         <button id="sel-settings-btn">⚙ Settings</button>
       </div>
       <div id="sel-list-scroll">
@@ -396,6 +430,45 @@ body.on-select #bg-layer{filter:blur(var(--bg-blur)) brightness(calc(0.22 + (1 -
     <div id="import-filename">—</div>
     <div id="import-progress-wrap"><div id="import-progress-bar"></div></div>
     <div id="import-count">0 / 0</div>
+  </div>
+</div>
+<div class="modal-overlay" id="online-panel">
+  <div class="modal-box">
+    <div id="online-header-row">
+      <div class="modal-title">BROWSE ONLINE</div>
+      <button id="online-close-x">✕</button>
+    </div>
+    <div id="online-filters">
+      <input id="online-search-input" type="text" placeholder="Search title, artist, mapper..." autocomplete="off" spellcheck="false">
+      <select id="online-mode-filter">
+        <option value="">All modes</option>
+        <option value="0">Standard</option>
+        <option value="1">Taiko</option>
+        <option value="2">Catch</option>
+        <option value="3">Mania</option>
+      </select>
+      <select id="online-sort-filter">
+        <option value="ranked_desc">Newest ranked</option>
+        <option value="ranked_asc">Oldest ranked</option>
+        <option value="difficulty_desc">Hardest first</option>
+        <option value="difficulty_asc">Easiest first</option>
+      </select>
+      <select id="online-status-filter">
+        <option value="1">Ranked</option>
+        <option value="">Any status</option>
+        <option value="0">Pending</option>
+        <option value="2">Approved</option>
+        <option value="4">Loved</option>
+      </select>
+      <input id="online-minstar" type="number" min="0" max="10" step="0.1" placeholder="★min">
+      <input id="online-maxstar" type="number" min="0" max="10" step="0.1" placeholder="★max">
+    </div>
+    <div class="online-status-line" id="online-status-line">Type to search, or leave blank and hit Enter to browse.</div>
+    <div id="online-list-scroll">
+      <div id="online-list"></div>
+      <div id="online-sentinel"></div>
+      <div id="online-loading-more" style="display:none;">loading more…</div>
+    </div>
   </div>
 </div>
 <div class="modal-overlay" id="mods-panel">
@@ -1638,7 +1711,7 @@ document.getElementById('sel-play-btn').addEventListener('click',()=>{if(songLib
 function openModal(id){document.getElementById(id).classList.add('open');setPreviewMuffle(true,'modal');}
 function closeModal(id){
   document.getElementById(id).classList.remove('open');
-  const anyOpen=['mods-panel','settings-panel','welcome-panel'].some(m=>document.getElementById(m).classList.contains('open'));
+  const anyOpen=['mods-panel','settings-panel','welcome-panel','online-panel'].some(m=>document.getElementById(m).classList.contains('open'));
   if(!anyOpen)setPreviewMuffle(false,'modal');
 }
 document.getElementById('sel-mods-btn').addEventListener('click',()=>openModal('mods-panel'));
@@ -1700,6 +1773,192 @@ async function addOsz(files){
   hideImportOverlay();renderSongSelect();
   if(currentSongIdx>=0&&currentPreviewSongIdx<0)startPreview(currentSongIdx);
 }
+
+// ══════════════════════════════════════════════════════════════════════
+//  ONLINE MAP SEARCH — song select via the hinai (CheeseGull-compatible)
+//  beatmap mirror API, same request shape/fallback pattern used in the
+//  taiko-mirror-proxy project: try the mirror directly first, fall back
+//  to the CORS-enabled Cloudflare Worker proxy if the direct request
+//  fails (blocked domain, no CORS on that endpoint, etc).
+// ══════════════════════════════════════════════════════════════════════
+const ONLINE_PAGE_SIZE=25;
+const ONLINE_PROXY_BASE="https://taikomirrorproxy.kiwi-martan.workers.dev";
+const ONLINE_FILTERS={query:'',mode:'',sort:'ranked_desc',status:'1',minStar:'',maxStar:''};
+let onlineOffset=0,onlineHasMore=true,onlineIsLoading=false,onlineSearchSeq=0;
+const onlineAddingIds=new Set();
+
+function buildOnlineSearchParams(offset){
+  const p=new URLSearchParams();
+  p.set('query',ONLINE_FILTERS.query||'');
+  if(ONLINE_FILTERS.mode!=='')p.set('mode',ONLINE_FILTERS.mode);
+  if(ONLINE_FILTERS.status!=='')p.set('status',ONLINE_FILTERS.status);
+  p.set('amount',String(ONLINE_PAGE_SIZE));
+  p.set('offset',String(offset));
+  if(ONLINE_FILTERS.sort)p.set('sort',ONLINE_FILTERS.sort);
+  if(ONLINE_FILTERS.minStar!=='')p.set('min_stars',ONLINE_FILTERS.minStar);
+  if(ONLINE_FILTERS.maxStar!=='')p.set('max_stars',ONLINE_FILTERS.maxStar);
+  return p.toString();
+}
+function onlineDirectUrl(offset){return `https://mirror.hinamizawa.ai/api/v1/hinai/search?${buildOnlineSearchParams(offset)}`;}
+function onlineProxyUrl(offset){return ONLINE_PROXY_BASE?`${ONLINE_PROXY_BASE}/beatmaps/search?${buildOnlineSearchParams(offset)}`:null;}
+
+async function onlineFetchFromUrl(url){
+  const res=await fetch(url);
+  if(!res.ok)throw new Error(`request returned ${res.status}`);
+  const data=await res.json();
+  if(!Array.isArray(data))throw new Error('unexpected response shape');
+  return data;
+}
+async function onlineFetchPage(offset){
+  let data;
+  try{
+    data=await onlineFetchFromUrl(onlineDirectUrl(offset));
+  }catch(directErr){
+    const proxyUrl=onlineProxyUrl(offset);
+    if(!proxyUrl)throw directErr;
+    data=await onlineFetchFromUrl(proxyUrl);
+  }
+  const MN={0:'osu',1:'taiko',2:'catch',3:'mania'};
+  const results=data.map(set=>{
+    const diffs=(set.ChildrenBeatmaps||[]).map(b=>({
+      mode:b.Mode,modeLabel:MN[b.Mode]||('mode'+b.Mode),
+      name:b.DiffName||'',stars:Math.round((b.DifficultyRating||0)*10)/10,
+      beatmapId:b.BeatmapID
+    })).sort((a,b)=>a.stars-b.stars);
+    if(!diffs.length)return null;
+    return{
+      setId:set.SetID,title:set.Title,artist:set.Artist,mapper:set.Creator,
+      bpm:set.BPM||set.Bpm||'—',cover:`https://assets.ppy.sh/beatmaps/${set.SetID}/covers/list.jpg`,
+      diffs
+    };
+  }).filter(Boolean);
+  results.__rawCount=data.length;
+  return results;
+}
+
+function onlineSongExistsLocally(title,artist){
+  const t=(title||'').trim().toLowerCase(),a=(artist||'').trim().toLowerCase();
+  return songLibrary.some(s=>(s.title||'').trim().toLowerCase()===t&&(s.artist||'').trim().toLowerCase()===a);
+}
+
+function renderOnlineResults(results,append){
+  const list=document.getElementById('online-list');
+  if(!append)list.innerHTML='';
+  results.forEach(r=>{
+    const card=document.createElement('div');card.className='online-card';
+    const alreadyHave=onlineSongExistsLocally(r.title,r.artist);
+    if(alreadyHave)card.classList.add('in-library');
+    const thumb=document.createElement('div');thumb.className='online-thumb';thumb.style.backgroundImage=`url("${r.cover}")`;card.appendChild(thumb);
+    const info=document.createElement('div');info.className='online-info';
+    const ttl=document.createElement('div');ttl.className='online-title';ttl.textContent=r.title;
+    const art=document.createElement('div');art.className='online-artist';art.textContent=`${r.artist} · mapped by ${r.mapper}`;
+    const metaRow=document.createElement('div');metaRow.className='online-meta-row';
+    const bpmTag=document.createElement('span');bpmTag.className='online-tag';bpmTag.textContent=r.bpm+' BPM';metaRow.appendChild(bpmTag);
+    const nDiffTag=document.createElement('span');nDiffTag.className='online-tag';nDiffTag.textContent=r.diffs.length+(r.diffs.length===1?' diff':' diffs');metaRow.appendChild(nDiffTag);
+    const topStar=r.diffs[r.diffs.length-1]?.stars;
+    if(topStar){const starTag=document.createElement('span');starTag.className='online-tag';starTag.textContent='★ up to '+topStar.toFixed(1);metaRow.appendChild(starTag);}
+    info.appendChild(ttl);info.appendChild(art);info.appendChild(metaRow);card.appendChild(info);
+    const btn=document.createElement('button');btn.className='online-add-btn';
+    btn.textContent=alreadyHave?'In library':'+ Add';
+    if(alreadyHave)btn.disabled=true;
+    btn.addEventListener('click',()=>onlineAddToLibrary(r,btn,card));
+    card.appendChild(btn);
+    list.appendChild(card);
+  });
+}
+
+async function onlineAddToLibrary(result,btn,card){
+  if(onlineAddingIds.has(result.setId))return;
+  onlineAddingIds.add(result.setId);
+  const originalText=btn.textContent;
+  btn.disabled=true;btn.textContent='Downloading…';
+  try{
+    const directUrl=`https://mirror.hinamizawa.ai/api/v1/hinai/d/${result.setId}`;
+    const proxyUrl=ONLINE_PROXY_BASE?`${ONLINE_PROXY_BASE}/beatmaps/download/${result.setId}`:null;
+    let buffer;
+    try{
+      const res=await fetch(directUrl);
+      if(!res.ok)throw new Error(`HTTP ${res.status}`);
+      buffer=await res.arrayBuffer();
+    }catch(directErr){
+      if(!proxyUrl)throw directErr;
+      const res=await fetch(proxyUrl);
+      if(!res.ok)throw new Error(`HTTP ${res.status}`);
+      buffer=await res.arrayBuffer();
+    }
+    const file=new File([buffer],(result.title||'beatmap')+'.osz',{type:'application/zip'});
+    const beforeLen=songLibrary.length;
+    await addOsz([file]);
+    if(songLibrary.length>beforeLen){
+      btn.textContent='Added ✓';btn.classList.add('done');
+      card.classList.add('in-library');
+      currentSongIdx=songLibrary.length-1;renderSongSelect();startPreview(currentSongIdx);
+    }else{
+      btn.disabled=false;btn.textContent=originalText;
+      alert('Could not read that beatmap file — it may not include a supported chart.');
+    }
+  }catch(err){
+    console.error('online map download failed:',err);
+    btn.disabled=false;btn.textContent=originalText;
+    alert('Could not download that map: '+err.message);
+  }finally{
+    onlineAddingIds.delete(result.setId);
+  }
+}
+
+function setOnlineStatus(msg,isErr){
+  const el=document.getElementById('online-status-line');
+  el.textContent=msg;el.classList.toggle('err',!!isErr);
+}
+
+async function onlineRunSearch(reset){
+  const mySeq=reset?++onlineSearchSeq:onlineSearchSeq;
+  if(reset){onlineOffset=0;onlineHasMore=true;document.getElementById('online-list').innerHTML='';}
+  if(!onlineHasMore||onlineIsLoading)return;
+  onlineIsLoading=true;
+  if(reset)setOnlineStatus('Searching…');
+  else document.getElementById('online-loading-more').style.display='block';
+  try{
+    const results=await onlineFetchPage(onlineOffset);
+    if(mySeq!==onlineSearchSeq)return; // a newer search superseded this one
+    onlineHasMore=results.__rawCount>=ONLINE_PAGE_SIZE;
+    onlineOffset+=ONLINE_PAGE_SIZE;
+    renderOnlineResults(results,!reset);
+    const list=document.getElementById('online-list');
+    if(!list.children.length)setOnlineStatus('No maps found — try different filters.');
+    else setOnlineStatus(`${list.children.length} map${list.children.length===1?'':'s'} shown${onlineHasMore?' — scroll for more':''}.`);
+  }catch(err){
+    if(mySeq!==onlineSearchSeq)return;
+    console.error('online search failed:',err);
+    setOnlineStatus('Search failed: '+err.message,true);
+  }finally{
+    onlineIsLoading=false;
+    document.getElementById('online-loading-more').style.display='none';
+  }
+}
+
+let onlineSearchDebounce=null;
+document.getElementById('online-search-input').addEventListener('input',function(){
+  ONLINE_FILTERS.query=this.value.trim();
+  clearTimeout(onlineSearchDebounce);
+  onlineSearchDebounce=setTimeout(()=>onlineRunSearch(true),380);
+});
+document.getElementById('online-mode-filter').addEventListener('change',function(){ONLINE_FILTERS.mode=this.value;onlineRunSearch(true);});
+document.getElementById('online-sort-filter').addEventListener('change',function(){ONLINE_FILTERS.sort=this.value;onlineRunSearch(true);});
+document.getElementById('online-status-filter').addEventListener('change',function(){ONLINE_FILTERS.status=this.value;onlineRunSearch(true);});
+document.getElementById('online-minstar').addEventListener('change',function(){ONLINE_FILTERS.minStar=this.value;onlineRunSearch(true);});
+document.getElementById('online-maxstar').addEventListener('change',function(){ONLINE_FILTERS.maxStar=this.value;onlineRunSearch(true);});
+
+document.getElementById('online-list-scroll').addEventListener('scroll',function(){
+  if(this.scrollTop+this.clientHeight>=this.scrollHeight-160)onlineRunSearch(false);
+});
+
+document.getElementById('sel-online-btn').addEventListener('click',()=>{
+  openModal('online-panel');
+  if(!document.getElementById('online-list').children.length)onlineRunSearch(true);
+});
+document.getElementById('online-close-x').addEventListener('click',()=>closeModal('online-panel'));
+document.getElementById('online-panel').addEventListener('click',e=>{if(e.target===document.getElementById('online-panel'))closeModal('online-panel');});
 
 function showLoadingScreen(song,diff){
   return new Promise(resolve=>{
